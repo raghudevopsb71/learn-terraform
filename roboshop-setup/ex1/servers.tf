@@ -1,5 +1,12 @@
+data "aws_ami" "ami" {
+  most_recent = true
+  name_regex  = "Centos-8-DevOps-Practice"
+  owners      = ["973714476881"]
+}
+
+
 resource "aws_instance" "frontend" {
-  ami                    = "ami-0a017d8ceb274537d"
+  ami                    = data.aws_ami.ami.image_id
   instance_type          = "t3.micro"
   vpc_security_group_ids = ["sg-0fc69f59ac03ac238"]
   tags = {
@@ -34,7 +41,7 @@ resource "aws_route53_record" "cart" {
 
 resource "aws_instance" "catalogue" {
   ami                    = "ami-0a017d8ceb274537d"
-  instance_type          = "t3.micro"
+  instance_type          = "t3.small"
   vpc_security_group_ids = ["sg-0fc69f59ac03ac238"]
   tags = {
     Name = "catalogue"
@@ -170,5 +177,5 @@ resource "aws_route53_record" "rabbitmq" {
 }
 
 output "rabbitmq" {
-  value = "Public IP address  = ${aws_instance.rabbitmq.public_ip}
+  value = "Public IP address  = ${aws_instance.rabbitmq.public_ip}"
 }
