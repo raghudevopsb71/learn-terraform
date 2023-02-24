@@ -134,6 +134,14 @@ resource "aws_route53_record" "mysql" {
   records = [aws_instance.mysql.private_ip]
 }
 
+resource "aws_route53_record" "redis" {
+  zone_id = "Z103214126L48SQW30RSR"
+  name    = "redis-dev.devopsb71.online"
+  type    = "A"
+  ttl     = 30
+  records = [aws_instance.redis.private_ip]
+}
+
 resource "aws_instance" "redis" {
   ami                    = "ami-0a017d8ceb274537d"
   instance_type          = "t3.micro"
@@ -143,13 +151,6 @@ resource "aws_instance" "redis" {
   }
 }
 
-resource "aws_route53_record" "redis" {
-  zone_id = "Z103214126L48SQW30RSR"
-  name    = "redis-dev.devopsb71.online"
-  type    = "A"
-  ttl     = 30
-  records = [aws_instance.redis.private_ip]
-}
 
 resource "aws_instance" "rabbitmq" {
   ami                    = "ami-0a017d8ceb274537d"
@@ -168,3 +169,6 @@ resource "aws_route53_record" "rabbitmq" {
   records = [aws_instance.rabbitmq.private_ip]
 }
 
+output "rabbitmq" {
+  value = aws_instance.rabbitmq.public_ip
+}
