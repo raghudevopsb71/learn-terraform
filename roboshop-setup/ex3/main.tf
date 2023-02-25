@@ -28,6 +28,10 @@ variable "instances" {
   }
 }
 
+output "ec2" {
+  value = aws_instances.instances
+}
+
 ## Immature code
 //variable "names" {
 //  default = [ "catalogue", "user"]
