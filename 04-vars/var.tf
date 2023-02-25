@@ -53,8 +53,8 @@ variable "d1" {
       trainer_name = "raju"
     },
     {
-      course_name = "devops"
-      course_name = "ravi"
+      course_name  = "devops"
+      trainer_name = "ravi"
     }
   ]
 }
